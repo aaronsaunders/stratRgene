@@ -1,0 +1,15 @@
+Package: StratRgene
+Title: A Package for Working with Stratagene qPCR Data output.
+Version: 0.0.0.9000
+Authors@R: person("Aaron", "Saunders", email = "aaron.marc.saunders@gmail.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.3.1)
+License: Creative commons (Attribution + Noncommercial + ShareAlike)
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    dplyr,
+    ggplot2,
+    readr,
+    stringr,
+    tidyr
