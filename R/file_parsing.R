@@ -1,7 +1,7 @@
-require(readr)
-require(tidyr)
-require(dplyr)
-require(stringr)
+library(readr)
+library(tidyr)
+library(dplyr)
+library(stringr)
 
 no_Ct_to_NA <- function(myvector){
   myvector <- ifelse(str_detect(myvector, "No Ct"), yes = NA, no = myvector)
@@ -76,4 +76,33 @@ parse_Stratagene_output <- function (path_to_file) {
            Tm_5           = as.numeric(slash_NA_to_NA(Tm_5)),
            Tm_6           = as.numeric(slash_NA_to_NA(Tm_6)))
   mydf
+}
+
+parse_metadata <- function(samplepath, dnaextpath, projectname){
+  #' Parse the text output from a Statagene qPCR machine.
+  #'
+  #' @param samplepath string path to sample data export from Podio
+  #' @param dnaextpath string path to dnaextract data export from Podio
+  #' @param projectname string projectname from Podio
+  #' @return dataframe of the parsed \code{path_to_file}
+  #' @examples
+  #' \dontrun{
+  #' parse_Stratagene_output(L:/data/A01-data.txt)
+  #' }
+  sampledata <- read_excel(samplepath) %>%
+    rename(sampleID = `Sample Number`,
+           amount   = Amount,
+           amount_unit = `Amount unit` ) %>%
+    filter(Project == projectname) %>%
+    select(sampleID, Site, Location)
+
+  dnasampledata <- read_excel(dnaextpath) %>%
+    rename(dnaID  = DNA_ID,
+           sampleID = `Source sample`,
+           extract_amount   = `amount extracted`,
+           extract_amount_unit = `amount unit`) %>%
+    select(dnaID, sampleID, extract_amount, extract_amount_unit) %>%
+    left_join(sampledata, by = "sampleID") %>%
+    select(-sampleID)
+  dnasampledata
 }
