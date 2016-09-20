@@ -1,6 +1,6 @@
 # StratRgene
 
-Is a simple package for using R to analyse qPCR data from the Stratagene qPCR machines.
+A simple package for using R to analyse qPCR data from the Stratagene qPCR machines.
 
 At the moment it can just parse the default text output from Stratagene qPCR software, rename the headings to names usable in R, and do some simple operations that I find useful. 
 
