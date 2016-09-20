@@ -27,7 +27,6 @@ parse_Stratagene_output <- function (path_to_file) {
   runnum <- fname_strings[[1]][1]
 
   mydf <- read_tsv(path_to_file) %>%
-          select(-`NA`) %>%
     # change all of the headers
           dplyr::rename(Well_Name = `Well Name`,
                   Well_Comment = `Well Comment`,
